@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}"/>
+		<link  rel="stylesheet" href="{{ url_for('static', filename='app.css') }}"/>
+		<style type="text/css">
+			.error{
+    			color: crimson;
+			}
+			.flash{
+    			text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="onepage">
+			<div class="onepage-bg" id="onepagebg"></div>
+			<div class="container">
+				<div class="row">
+					<div class="title-text">
+						<div class="col-md-12 headfontsize">
+							<h1 class="headh1content">
+								浪潮估值<br />
+								在这里你可以估算您的<br />
+								数据价值
+							</h1>
+							<p style="margin-top: 50px; line-height: 2.0625rem; width: 600px;">浪潮卓数大数据产业发展有限公司作为浪潮集团旗下的大数据板块，致力于成为数据资源提供商、数据资产运营商和数据交易服务商，以大数据时代的“数商”为发展目标，促进数据社会化。浪潮卓数是一个大数据平台，所依托的浪潮集团以“云+数”为发展战略，全面转型新型互联网公司。浪潮大数据在智慧企业方面帮助企业提高效率、降低成本。</p>
+							<p class="btn-app-store" style="margin-top: 50px;">
+								<a class="btn btn-success btn-lg"  onclick="ScrollToControl(910);">立即估值</a>
+								<a class="btn btn-success btn-lg" id="mutply" onclick="ScrollToControl(910+960);">批量估值</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="towpage">
+			<div class="twopage-bg" id="twopagebg"></div>
+			<div class="row">
+				<nav class="navbar navbar-inverse navbar-fixed-top " role="navigation">
+					<div class="container">
+						<div class="navbar-header">
+							<a href="#" class="navbar-brand">浪潮估值</a>
+						</div>
+						<div id="navbar" class="collapse navbar-collapse">
+							<ul class="nav navbar-nav">
+								<li class="active"><a href="#">首页</a></li>
+								<li><a>关于</a></li>
+								<li><a onclick="ScrollToControl(1870)">联系我们</a></li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-3">
+					<div class="mynav">
+						<img  class="icon" src={{img[0]}} />
+					</div>
+				</div>
+				<div class="col-md-4 col-md-offset-1">
+					<h1 id="title">请输入您的数据</h1>
+				</div>
+				<div class="twopage-course col-md-6 ">
+					<form method="post" action="{{ url_for('index') }}" enctype="multipart/form-data">
+					{{ fielform.csrf_token }}
+						<div class="form-group">
+					<img  style="width: 25px;" src={{img[1]}}/><label class="lb-txt">数据名称</label>
+						{{ fielform.dataN }}
+						<!--{{ fielform.dataN.errors }}-->
+						{% if fielform.dataN.errors %}{#是否有异常#}
+							{% for err in fielform.dataN.errors %}
+                				<p class="error">	{{ err }} </p>
+            				{% endfor %}
+        				{% endif %}
+							<!--<input type="text" class="form-control" id="exampleInputEmail1" name="dataN" placeholder=" "> for="exampleInputEmail1"-->
+					</div> 
+					<div class="form-group">
+						<img  style="width: 25px;" src={{img[2]}} /><label class="lb-txt" >数据类型</label>
+						{{ fielform.dataT }}
+						<!--<input type="text" class="form-control"  name="dataT" placeholder=" ">for="exampleInputPassword1"-->
+					</div> 
+					<div class="form-group">
+						<img  style="width: 23px;" src={{img[3]}} /> <label class="lb-txt" >数据标签</label>
+						{{ fielform.dataL }}
+                        {% if fielform.dataL.errors %}{#是否有异常#}
+							{% for err in fielform.dataL.errors %}
+                				<p class="error">	{{ err }} </p>
+            				{% endfor %}
+        				{% endif %}
+						<!--<input type="text" class="form-control"  name="dataL" placeholder=" ">for="exampleInputPassword1"-->
+					</div> 
+					<div class="form-group">
+
+                            <img  style="width: 25px;" src={{img[4]}} /><label class="lb-txt" >数据大小</label>
+                        <div class="input-group">
+                            {{ fielform.dataA }}
+
+                                <div class="input-group-addon">MB</div>
+                             </div>
+                            {% if fielform.dataA.errors %}{#是否有异常#}
+                                {% for err in fielform.dataA.errors %}
+                                    <p class="error">	{{ err }} </p>
+                                {% endfor %}
+                            {% endif %}
+
+						<!--<input type="text" class="form-control"  name="dataS" placeholder=" ">for="exampleInputPassword1"-->
+					</div> 
+					
+{#					<div class="form-group">#}
+{#						<img  style="width: 25px;" src={{img[5]}} /><label class="lb-txt" >数据格式</label>#}
+{#						{{ fielform.dataF }}#}
+{#						<!--<input type="text" class="form-control"  name="dataF" placeholder=" ">for="exampleInputPassword1"-->#}
+{##}
+{#					</div>#}
+					<div class="form-group form-inline">
+						<img  style="width: 25px;" src={{img[6]}} /><label class="lb-txt">时间范围</label> <br />
+					开始时间 &nbsp;&nbsp;&nbsp;&nbsp;<input type="date" class="form-control form-inline" name="startTime" id="startTime" placeholder="">
+					&nbsp;&nbsp;&nbsp;&nbsp;结束时间 &nbsp;&nbsp;&nbsp;&nbsp;<input type="date" class="form-control form-inline" name="endTime" id="endTime" placeholder=""/>
+					{% for cat,msg in get_flashed_messages(with_categories=true, category_filter=['error']) %}
+							<p class="{{cat}}"> {{msg}} </p>
+						{% endfor %}
+					</div>
+					<!--<div class="flash">-->
+						<!--{% for cat,msg in get_flashed_messages(with_categories=true, category_filter=['error']) %}-->
+							<!--<p class="{{cat}}"> {{msg}} </p>-->
+						<!--{% endfor %}-->
+					<!--</div>-->
+					<div class="form-group">
+					<img  style="width: 23px;" src={{img[7]}}/>	<label class="lb-txt" >数据店铺</label>
+						{{ fielform.dataS }}
+						{% if fielform.dataS.errors %}{#是否有异常#}
+							{% for err in fielform.dataS.errors %}
+                				<p class="error">	{{ err }} </p>
+            				{% endfor %}
+        				{% endif %}
+						<!--<input type="text" class="form-control" id="exampleInputPassword1" name="dataA" placeholder=" ">for="exampleInputPassword1"-->
+					</div>
+                    <div class="form-group">
+                    <img  style="width: 23px;" src={{img[5]}}/>	<label class="lb-txt" >数据浏览量</label>
+						{{ fielform.dataSC }}
+						{% if fielform.dataSC.errors %}{#是否有异常#}
+							{% for err in fielform.dataSC.errors %}
+                				<p class="error">	{{ err }} </p>
+            				{% endfor %}
+        				{% endif %}
+						<!--<input type="text" class="form-control" id="exampleInputPassword1" name="dataA" placeholder=" ">for="exampleInputPassword1"-->
+					</div>
+
+					<a href="javascript:void(0)"><button type="submit" class="btn btn-success btn-lg " id="btn-submit" onclick="process()">立&nbsp;&nbsp;即&nbsp;&nbsp;估&nbsp;&nbsp;值</button></a>
+					</form >
+
+
+					<!--<form method="post" action="{{ url_for('index') }}" enctype="multipart/form-data">-->
+                        <!--{{ fielupform.csrf_token }}-->
+					<!--<label >选择上传的文件</label>{{ fielupform.fiel }}-->
+					<!--{% if fielupform.fiel.errors %}{#是否有异常#}-->
+						<!--{% for err in fielupform.fiel.errors %}-->
+                			<!--<p class="error">	{{ err }} </p>-->
+            			<!--{% endfor %}-->
+        			<!--{% endif %}-->
+					<!--{{ fielupform.submit }}-->
+					<!--</form>-->
+				<!--</div>-->
+			<!--</div>-->
+			<!--<div class="row panel-footer">-->
+				<!--<div class="col-md-6 col-md-offset-5">-->
+					<!--<address>-->
+						<!--<strong>TAKER</strong><br>-->
+						<!--湖南省，衡阳市，南华大学，计算机学院<br />-->
+						<!--TEL:17690520513<br>-->
+						<!---->
+						<!---->
+					<!--</address>-->
+				</div>
+			</div>
+		</div>
+		<div class="threepage">
+			<div class="threepage-bg"></div>
+			<div class="container" id="contain">
+
+				<div class="row">
+
+					<div class="sub">
+						<div class="col-md-9 " style="top: 30px;"><h1 style="font-size: 60px; color: #555555;">浪潮估值，批量处理</h1></div>
+						<div class="col-md-3 " style=" top: 20px;">
+							<div class="">
+								<img  class="icon" style="width: 150px; height: 150px;" src={{ img[0] }} />
+
+							</div>
+						</div>
+							<form method="post" action="{{ url_for('index') }}" enctype="multipart/form-data">
+							<div class="col-md-12 ">
+							 <div class="form-group">
+									{{ fielupform.csrf_token }}
+								<label >选择上传的文件</label>
+									{{ fielupform.fiel }}
+									{% if fielupform.fiel.errors %}{#是否有异常#}
+										{% for err in fielupform.fiel.errors %}
+											<p class="error">	{{ err }} </p>
+										{% endfor %}
+									{% endif %}
+							 </div>
+							</div>
+								<div class="col-md-4 " style="top: 20px;">
+									<a href="javascript:void(0)"/>
+									<button type="submit" class="btn btn-primary btn-lg " id=""  onclick="process()">立&nbsp;&nbsp;即&nbsp;&nbsp;估&nbsp;&nbsp;值</button>
+								</div>
+							</form>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="row panel-footer">
+				<div class="col-md-6 col-md-offset-5">
+					<address>
+						<strong>TAKER</strong><br>
+{#						湖南省，衡阳市，南华大学，计算机学院<br />#}
+{#						TEL:17690520513<br>#}
+
+
+					</address>
+				</div>
+			</div>
+		</div>
+		<script src="{{url_for('static',filename='page.js')}}"></script>
+		<script src="{{url_for('static',filename='jquery-3.5.1.min.js')}}"></script>
+	</body>
+</html>

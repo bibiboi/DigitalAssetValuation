@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试</title>
+    <style type="css/text">
+        .form-control{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<form action="{{ url_for('test') }}" method="post">
+    {{ form.csrf_token }}
+    {{ form.select }}
+    {{ form.submit }}
+</form>
+<table>
+
+</table>
+<!--分页-->
+			<nav aria-label="Page navigation" class="pull-right">
+			  <ul class="pagination">
+				{% if page_data.has_prev %}{#第一个翻页按钮#}
+					<li>
+				  <a href="{{ url_for('result', page=page_data.prev_num) }}" aria-label="Previous">
+					<span aria-hidden="true">&laquo;</span>
+				  </a>
+					</li>
+                {% else %}
+				  	<li class="disabled">
+				  <a href="#" aria-label="Previous">
+					<span aria-hidden="true">&laquo;</span>
+				  </a>
+					</li>
+				{% endif %}
+
+				  {% for page_num in page_data.iter_pages() %}
+					<li><a href="{{ url_for('result', page=page_num) }}">
+						{{ page_num }}
+					</a></li>
+				  {% endfor %}
+
+				{% if page_data.has_prev %}{#第二个翻页按钮#}
+                    <li>
+                      <a href="{{ url_for('result', page=page_data.next_num) }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+				{% else %}
+                    <li class="disabled">
+                      <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+				{% endif %}
+			  </ul>
+			</nav>
+</body>
+</html>
+
+<nav aria-label="Page navigation" class="pull-right">
+			  <ul class="pagination">
+				{% if page_data.has_prev %}{#第一个翻页按钮#}
+					<li>
+				  <a href="{{ url_for('result', page=page_data.prev_num) }}" aria-label="Previous">
+					<span aria-hidden="true">&laquo;</span>
+				  </a>
+					</li>
+				  {% else %}
+				  	<li class="disabled">
+				  <a href="#" aria-label="Previous">
+					<span aria-hidden="true">&laquo;</span>
+				  </a>
+					</li>
+				{% endif %}
+
+				  {% for page_num in page_data.iter_pages() %}
+					<li><a href="{{ url_for('result', page=page_num) }}">
+						{{ page_num }}
+					</a></li>
+				  {% endfor %}
+
+				{% if page_data.has_prev %}{#第二个翻页按钮#}
+				<li>
+				  <a href="{{ url_for('result', page=page_data.next_num) }}" aria-label="Next">
+					<span aria-hidden="true">&raquo;</span>
+				  </a>
+				</li>
+				 {% else %}
+				  <li class="disabled">
+				  <a href="#" aria-label="Next">
+					<span aria-hidden="true">&raquo;</span>
+				  </a>
+				</li>
+				  {% endif %}
+			  </ul>
+			</nav>

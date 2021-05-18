@@ -1,0 +1,149 @@
+h1,h3,p,a,button{
+	font-family: helvetica;
+}
+.onepage{
+	height: 960px;
+	
+}
+
+.onepage-bg{
+	height: 960px;
+	width: 100%;
+	position: absolute;
+	background-position: center; 
+	background-size:cover ;
+	z-index: -1;
+	
+	
+}
+
+
+.sub{
+	height: 360px;
+	width: 80%;
+	background:rgba(255,250,250,0.5);
+	left: 10%;
+	position: relative;
+	border: rgba(220,220,220,0.1);
+	border-radius:10px;
+	box-shadow:2px 2px 10px #333333;
+	margin-top: 80px;
+}
+.threepage{
+	
+	height: 700px;
+}
+
+#contain{
+	height: 700px;
+	width: 100%;
+	
+}
+
+.threepage-bg{
+	height: 700px;
+	width: 100%;
+	position: absolute;
+	background-position: center; 
+	background-size:cover ;
+	
+}
+#onepagebg{
+	/* background-color: black ; */
+	background-image: url(./images/bg1.JPG);
+}
+
+.headh1content{
+	margin-top:150px ;
+	line-height: 75px;
+}
+
+.title-text{
+	margin-left:50px ;
+}
+.headfontsize h1{
+	font-size: 50pt;
+	color: #FFFFFF;
+}
+
+.headfontsize p{
+	color: #FFFFFF;
+	
+}
+
+.towpage{
+	height: 960px;
+	margin-top: 50px;
+	
+	
+}
+#btn-submit{
+	margin-top: 40px;
+	margin-left: 400px;
+}
+
+.twopage-bg{
+	height: 960px;
+	width: 100%;
+	position: absolute;
+	background-position: center; 
+	background-size:cover ;
+	
+}
+
+#twopagebg{
+	
+}
+
+.icon{
+	height: 200px;
+	border: aliceblue;
+	border: 0.0625rem;
+}
+
+.mynav{
+	height: 200px;
+	
+}
+
+#title{
+	font-size: 60px;
+	line-height: 80px;
+	margin-left: 30px;
+	color: #AFD9EE;
+}
+.panel-footer{
+	margin-top:30px ;
+}
+
+.lb-txt{
+	margin-left:10px ;
+}
+
+.panel-footer{
+	background-color: #122B40;
+	color: white;
+	align-content: center;
+}
+
+#startTime , #endTime{
+	width: 30%;
+}
+
+.webbody{
+	margin-top: 200px;
+	height: 590px;
+	width: 60%;
+	position: relative;
+	left: 20%;
+
+	
+}
+
+#single{
+ margin-left: 50px;	
+}
+
+#mutply{
+	margin-left: 150px;
+}
